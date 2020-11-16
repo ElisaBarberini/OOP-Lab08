@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Random;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -62,6 +63,11 @@ public class BadIOGUI {
                 }
             }
         });
+        final JPanel canvas1 = new JPanel();
+        canvas1.setLayout(new BoxLayout(canvas1, BoxLayout.X_AXIS));
+        canvas.add(canvas1, BorderLayout.CENTER);
+        canvas1.add(write);
+        frame.setContentPane(canvas);
     }
 
     private void display() {
@@ -87,6 +93,7 @@ public class BadIOGUI {
          * OK, ready to pull the frame onscreen
          */
         frame.setVisible(true);
+        frame.pack();
     }
 
     /**
