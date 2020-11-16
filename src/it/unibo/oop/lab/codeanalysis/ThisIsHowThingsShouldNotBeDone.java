@@ -31,7 +31,6 @@ public final class ThisIsHowThingsShouldNotBeDone {
      * 
      * This class should not have a public or default constructor
      */
-    
 
     /*
      * PMD complains:
@@ -63,7 +62,8 @@ public final class ThisIsHowThingsShouldNotBeDone {
          * 
          * What does it mean "43"? It's a magic number!
          */
-        for (int i = 0; i < 43; i++) {
+        final int m = 43;
+        for (int i = 0; i < m; i++) {
             c.add(new Object());  //più veloce del c , java sa anche decopilare cosa che c non sapeva fare!
         }
         /*
