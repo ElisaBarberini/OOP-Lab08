@@ -14,6 +14,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+//import javax.swing.JScrollPane;
+//import javax.swing.JTextArea;
+import javax.swing.JTextField;
+//import javax.swing.border.TitledBorder;
 
 /**
  * This class is a simple application that writes a random number on a file.
@@ -33,7 +37,6 @@ public class MiniGUI {
      * 
      */
     public MiniGUI() {
-      
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
         final JButton write = new JButton("Print a random number on standard output");
@@ -52,9 +55,17 @@ public class MiniGUI {
 
         final JPanel canvas1 = new JPanel();
         canvas1.setLayout(new BoxLayout(canvas1, BoxLayout.X_AXIS));
-        // canvas1.add(write);
+        //final JButton nuovo = new JButton("nuovo testo");
+        //canvas1.add(nuovo);
+        //canvas.add(canvas1, BorderLayout.CENTER);
         canvas.add(canvas1, BorderLayout.CENTER);
+        canvas1.add(write);
         frame.setContentPane(canvas1);
+        final JTextField result = new JTextField();
+        //result.setLineWrap(true); se uso textarea
+        //final JScrollPane scroll = new JScrollPane(result);
+        //canvas1.add(scroll, BorderLayout.NORTH );
+        canvas1.add(result, BorderLayout.NORTH);
     }
 
     private void display() {
@@ -80,7 +91,8 @@ public class MiniGUI {
          * OK, ready to pull the frame onscreen
          */
         frame.setVisible(true);
-    }
+        frame.pack();
+        }
 
     /**
      * @param args ignored
