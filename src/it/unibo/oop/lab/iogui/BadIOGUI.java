@@ -64,10 +64,18 @@ public class BadIOGUI {
             }
         });
         final JPanel canvas1 = new JPanel();
+        final JButton read = new JButton(" Read ");
         canvas1.setLayout(new BoxLayout(canvas1, BoxLayout.X_AXIS));
+        canvas1.add(read);
         canvas.add(canvas1, BorderLayout.CENTER);
         canvas1.add(write);
         frame.setContentPane(canvas);
+        read.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent e) {
+                System.out.println(" Ciao ! ");
+            }
+            });
+        
     }
 
     private void display() {
