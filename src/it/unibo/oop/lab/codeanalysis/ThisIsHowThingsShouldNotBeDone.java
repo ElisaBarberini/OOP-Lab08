@@ -10,12 +10,13 @@ import java.util.Collection;
  * This code triggers static code analyzers. You should use it to see how things
  * SHOULD NOT be done.
  *
- * @author Danilo Pianini
- * @version 1.2
  *
  */
-public class ThisIsHowThingsShouldNotBeDone {
+public final class ThisIsHowThingsShouldNotBeDone {
 
+    private ThisIsHowThingsShouldNotBeDone() {
+
+    }
     /*
      * PMD complains:
      * 
@@ -30,6 +31,7 @@ public class ThisIsHowThingsShouldNotBeDone {
      * 
      * This class should not have a public or default constructor
      */
+    
 
     /*
      * PMD complains:
@@ -43,7 +45,7 @@ public class ThisIsHowThingsShouldNotBeDone {
      * 
      * Missing Javadoc
      */
-    public static void main(String[] a) {
+    public static void main(final String[] a) {
         /*
          * PMD Complains:
          * 
@@ -61,14 +63,16 @@ public class ThisIsHowThingsShouldNotBeDone {
          * 
          * What does it mean "43"? It's a magic number!
          */
-        for (int i = 0; i < 43; i++)
-            c.add(new Object());
+        for (int i = 0; i < 43; i++) {
+            c.add(new Object());  //più veloce del c , java sa anche decopilare cosa che c non sapeva fare!
+        }
         /*
          * FindBugs complains
          * 
          * Slow: use clear() instead!
          */
-        c.removeAll(c);
+        c.clear();
+        //un sorgente è finito quando ha 0 warning
     }
 
 }
