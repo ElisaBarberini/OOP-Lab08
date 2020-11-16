@@ -32,6 +32,7 @@ public class MiniGUI {
     private static final int PROPORTION = 5;
     private final Random rng = new Random();
     private final JFrame frame = new JFrame(TITLE);
+    private final JTextField result = new JTextField();
 
     /**
      * 
@@ -49,7 +50,9 @@ public class MiniGUI {
         write.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
+                int x = rng.nextInt();
                 System.out.println(rng.nextInt());
+                MiniGUI.this.result.setText(Integer.toString(x));
             }
         });
 
@@ -60,12 +63,11 @@ public class MiniGUI {
         //canvas.add(canvas1, BorderLayout.CENTER);
         canvas.add(canvas1, BorderLayout.CENTER);
         canvas1.add(write);
-        frame.setContentPane(canvas1);
-        final JTextField result = new JTextField();
+        frame.setContentPane(canvas);
         //result.setLineWrap(true); se uso textarea
         //final JScrollPane scroll = new JScrollPane(result);
         //canvas1.add(scroll, BorderLayout.NORTH );
-        canvas1.add(result, BorderLayout.NORTH);
+        canvas.add(result, BorderLayout.NORTH);
     }
 
     private void display() {
