@@ -47,7 +47,7 @@ public final class SimpleGUI {
      */
     /**
      * builds a new {@link SimpleGUI}.
-     * @param
+     * @param controller is used
      */
     public SimpleGUI(final Controller controller) {
         this.controller = controller;
@@ -64,16 +64,14 @@ public final class SimpleGUI {
         psouth.add(two);
         panel.add(psouth, BorderLayout.SOUTH);
         one.addActionListener((ActionListener) new ActionListener() {
-            
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 SimpleGUI.this.controller.setnextStringToPrint(textfield.getText());
                 SimpleGUI.this.controller.printCurrentString();
             }
         });
         two.addActionListener((ActionListener) new ActionListener() {
-            
-            public void actionPerformed(ActionEvent e) {
-                final List<String>scorrere = SimpleGUI.this.controller.getHistory();
+            public void actionPerformed(final ActionEvent e) {
+                final List<String> scorrere = SimpleGUI.this.controller.getHistory();
                 for (final String stringa : scorrere) {
                     if (stringa != null) {
                         System.out.println(" " + stringa);
@@ -108,11 +106,10 @@ public final class SimpleGUI {
          */
         frame.setLocationByPlatform(true);
     }
-    
    private void display() {
        frame.setVisible(true);
    }
-   public static void main(String[]args) {
+   public static void main(final String[]args) {
        new SimpleGUI(new ControllerImpl()).display();
    }
 
