@@ -1,9 +1,19 @@
 package it.unibo.oop.lab.mvc;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import java.util.List;
 
 /**
  * A very simple program using a graphical interface.
@@ -11,8 +21,10 @@ import javax.swing.JFrame;
  */
 public final class SimpleGUI {
 
+    private final String print = "Print";
+    private final String show = "Show History";
     private final JFrame frame = new JFrame();
-
+    private final Controller controller;
     /*
      * Once the Controller is done, implement this class in such a way that:
      * 
@@ -33,12 +45,47 @@ public final class SimpleGUI {
      * have been done to this moment in the text area.
      * 
      */
-
     /**
      * builds a new {@link SimpleGUI}.
+     * @param
      */
-    public SimpleGUI() {
-
+    public SimpleGUI(final Controller controller) {
+        this.controller = controller;
+        final JPanel panel = new JPanel(new BorderLayout());
+        final JTextField textfield = new JTextField();
+        panel.add(textfield, BorderLayout.NORTH);
+        final JTextArea textarea = new JTextArea();
+        textarea.setEditable(false);
+        panel.add(textarea, BorderLayout.CENTER);
+        final JPanel psouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        final JButton one = new JButton(print);
+        final JButton two = new JButton(show);
+        psouth.add(one);
+        psouth.add(two);
+        panel.add(psouth, BorderLayout.SOUTH);
+        one.addActionListener((ActionListener) new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                SimpleGUI.this.controller.setnextStringToPrint(textfield.getText());
+                SimpleGUI.this.controller.printCurrentString();
+            }
+        });
+        two.addActionListener((ActionListener) new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                final List<String>scorrere = SimpleGUI.this.controller.getHistory();
+                for (final String stringa : scorrere) {
+                    if (stringa != null) {
+                        System.out.println(" " + stringa);
+                    }
+                    else {
+                        return;
+                    }
+                }
+            }
+        });
+        this.frame.setContentPane(panel);
+        this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
         /*
          * Make the frame half the resolution of the screen. This very method is
          * enough for a single screen setup. In case of multiple monitors, the
@@ -61,5 +108,12 @@ public final class SimpleGUI {
          */
         frame.setLocationByPlatform(true);
     }
+    
+   private void display() {
+       frame.setVisible(true);
+   }
+   public static void main(String[]args) {
+       new SimpleGUI(new ControllerImpl()).display();
+   }
 
 }
