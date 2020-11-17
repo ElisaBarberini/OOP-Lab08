@@ -5,8 +5,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Random;
 
 import javax.swing.BoxLayout;
@@ -14,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import java.util.List;
 
 /**
  * This class is a simple application that writes a random number on a file.
@@ -25,12 +31,13 @@ import javax.swing.JPanel;
 public class BadIOGUI {
 
     private static final String TITLE = "A very simple GUI application";
-    private static final String PATH = System.getProperty("user.home")
+    private static final  String PATH = System.getProperty("user.home")
             + System.getProperty("file.separator")
             + BadIOGUI.class.getSimpleName() + ".txt";
     private static final int PROPORTION = 5;
     private final Random rng = new Random();
     private final JFrame frame = new JFrame(TITLE);
+    private final JButton read = new JButton(" Read ");
 
     /**
      * 
@@ -64,7 +71,7 @@ public class BadIOGUI {
             }
         });
         final JPanel canvas1 = new JPanel();
-        final JButton read = new JButton(" Read ");
+        //final JButton read = new JButton(" Read ");
         canvas1.setLayout(new BoxLayout(canvas1, BoxLayout.X_AXIS));
         canvas1.add(read);
         canvas.add(canvas1, BorderLayout.CENTER);
@@ -72,10 +79,17 @@ public class BadIOGUI {
         frame.setContentPane(canvas);
         read.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent e) {
-                System.out.println(" Ciao ! ");
+                try {
+                    final List<String> leggifile = Files.readAllLines(new File(PATH).toPath());
+                    for (String linea : leggifile) {
+                        System.out.println(linea);
+                    }
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
+                    e1.printStackTrace();
+                }
             }
             });
-        
     }
 
     private void display() {
